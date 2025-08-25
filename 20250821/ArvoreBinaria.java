@@ -5,6 +5,7 @@
  * @version 2025.08.14
  */
 public class ArvoreBinaria implements Arvore {
+    private NodoArvore raiz;
 
 
     /**
@@ -46,9 +47,9 @@ public class ArvoreBinaria implements Arvore {
 
         // Caso recursivo: desce na árvore
         if (valor < noAtual.chave) {
-            noAtual.filhoEsquerdo = inserirRecursivo(noAtual.filhoEsquerdo, valor);
+            noAtual.filhoEsquerda = inserirRecursivo(noAtual.filhoEsquerda, valor);
         } else if (valor > noAtual.chave) {
-            noAtual.filhoDireito = inserirRecursivo(noAtual.filhoDireito, valor);
+            noAtual.filhoDireita = inserirRecursivo(noAtual.filhoDireita, valor);
         }
         
         // Se o valor já existe, não faz nada e retorna o nó como está.
@@ -82,9 +83,9 @@ public class ArvoreBinaria implements Arvore {
         }
 
         if (valor < noAtual.chave) {
-            return pesquisaRecursivo(noAtual.filhoEsquerdo, valor);
+            return pesquisaRecursivo(noAtual.filhoEsquerda, valor);
         } else {
-            return pesquisaRecursivo(noAtual.filhoDireito, valor);
+            return pesquisaRecursivo(noAtual.filhoDireita, valor);
         }
     }
     
@@ -96,6 +97,9 @@ public class ArvoreBinaria implements Arvore {
      */
     @Override
     public void imprimePreFixado() {
+        System.out.print("Pré-fixado: ");
+        imprimePreFixadoRecursivo(this.raiz);
+        System.out.println();
     }
     
     /**
@@ -103,6 +107,34 @@ public class ArvoreBinaria implements Arvore {
      * @param no O nó raiz da subárvore a ser impressa.
      */
     private void imprimePreFixadoRecursivo(NodoArvore no) {
+        if (no != null) {
+            System.out.print(no.chave + " ");
+            imprimePreFixadoRecursivo(no.filhoEsquerda);
+            imprimePreFixadoRecursivo(no.filhoDireita);
+        }
     }
 
+private void imprimePosFixado(NodoArvore nodoAtual){
+    imprimePosFixadoRecursivo(this.raiz);
+   }
+
+    private void imprimePosFixadoRecursivo(NodoArvore nodoAtual) {
+        if (nodoAtual != null) {
+            imprimePosFixadoRecursivo(nodoAtual.filhoEsquerda);
+            imprimePosFixadoRecursivo(nodoAtual.filhoDireita);
+            System.out.print(nodoAtual.chave + " ");
+        }
+    }
+
+    private void imprimeOrdem(NodoArvore nodoAtual){
+        imprimeOrdemRecursivo(this.raiz);
+    }
+
+    private void imprimeOrdemRecursivo(NodoArvore nodoAtual){
+        if (nodoAtual != null){
+            imprimeOrdemRecursivo(nodoAtual.filhoEsquerda);
+            System.out.print(nodoAtual.chave + " ");
+            imprimeOrdemRecursivo(nodoAtual.filhoDireita);
+        }
+    }
 }
